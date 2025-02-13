@@ -1,0 +1,10 @@
+section {
+    display: flex;
+    padding: 2rem;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    max-width: 12rem;
+    border: var(--border-color) 2px solid;
+    border-radius: 5px;
+}
