@@ -2,14 +2,18 @@ import React from 'react';
 import "./FruitCounter.css";
 import Button from "../button/Button.jsx";
 
-function FruitCounter(props) {
+function FruitCounter({title, fruitCount, setFruitCount}) {
     return (
-        <section>
-            <h3>Fruit</h3>
-            <Button></Button>
-            <p>0</p>
-            <Button></Button>
-        </section>
+        <article>
+            <h3>{title}</h3>
+            <Button handleClick={() => setFruitCount(Math.max(0, (fruitCount - 1)))}>
+                -
+            </Button>
+            <p>{fruitCount}</p>
+            <Button handleClick={() => setFruitCount(fruitCount + 1)}>
+                +
+            </Button>
+        </article>
     );
 }
 
