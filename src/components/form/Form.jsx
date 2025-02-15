@@ -2,7 +2,7 @@ import React from 'react';
 import Button from "../button/Button.jsx";
 import "./Form.css"
 
-function Form(props) {
+function Form({onSubmit}) {
 
     const [formState, setFormState] = React.useState({
         firstName: "",
@@ -10,24 +10,28 @@ function Form(props) {
         age: 0,
         zipcode: "",
         deliverFrequency: "every-week",
-        deliverMoment: "day",
+        deliverMoment: "afternoon",
         comments: "",
-
+        termsAndConditions: false
     })
 
     function handleChange(e) {
         const changedFieldName = e.target.name
-        const changedFieldValue = e.target.value ===
+        const changedFieldValue = e.target.type === 'checkbox' ? e.target.checked : e.target.value
 
         setFormState({
             ...formState,
-            [changedFieldName]: e.target.value,
-            [changedFieldValue]: e.target.value
+            [changedFieldName]: changedFieldValue,
         })
     }
 
+    function handleSubmit(e) {
+        e.preventDefault()
+        onSubmit(formState)
+    }
+
     return (
-        <form >
+        <form onSubmit={handleSubmit}>
             <h2>Bestelformulier</h2>
             <label htmlFor="firstName">
                 Voornaam
@@ -67,26 +71,31 @@ function Form(props) {
             </label>
             <label htmlFor="deliverFrequency">
                 Bezorgfrequentie
-                <select name="deliverFrequency" id="deliverFrequency" value={formState.deliverFrequency} onChange={handleChange}>
+                <select name="deliverFrequency" id="deliverFrequency" value={formState.deliverFrequency}
+                        onChange={handleChange}>
                     <option value="every-week">Iedere week</option>
                     <option value="every-other-week">Om de week</option>
                     <option value="every-month">Iedere maand</option>
                 </select>
             </label>
             <span>
-            <input type="radio" id="afternoon" name="deliverMoment" value="afternoon"/>
-            <label htmlFor="html">Overdag</label>
-            <input type="radio" id="evening" name="deliverMoment" value="evening"/>
-            <label htmlFor="css">&apos;s Avonds</label>
+            <input type="radio" id="afternoon" name="deliverMoment" value="afternoon"
+                   checked={formState.deliverMoment === 'afternoon'} onChange={handleChange}/>
+            <label htmlFor="afternoon">Overdag</label>
+            <input type="radio" id="evening" name="deliverMoment" value="evening"
+                   checked={formState.deliverMoment === 'evening'} onChange={handleChange}/>
+            <label htmlFor="evening">&apos;s Avonds</label>
                 </span>
             <label htmlFor="comments">
                 Opmerkingen
-                <textarea name="comments" id="comments" cols="30" rows="10" value={formState.comments} onChange={handleChange}></textarea>
             </label>
-            <label htmlFor="terms-and-conditions"></label>
-            <input type="checkbox" id="terms-and-conditions" name="terms-and-conditions"/>
-            <Button>Verzend</Button>
-
+            <textarea name="comments" id="comments" cols="10" rows="4" value={formState.comments}
+                      onChange={handleChange}></textarea>
+            <label htmlFor="termsAndConditions">
+                <input type="checkbox" id="termsAndConditions" name="termsAndConditions"
+                       checked={formState.termsAndConditions} onChange={handleChange}/>
+                Ik ga akkoord met de voorwaarden</label>
+            <Button disabled={!formState.termsAndConditions}>Verzend</Button>
         </form>
     );
 }

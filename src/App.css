@@ -3,10 +3,20 @@
     max-width: 800px;
 }
 
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
 section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     max-width: 20rem;
-    margin: 0 auto;
+}
+
+Button {
+    align-self: center;
 }
