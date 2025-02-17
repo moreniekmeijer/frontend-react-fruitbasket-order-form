@@ -1,0 +1,19 @@
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+img, picture, video, canvas, svg {
+  max-width: 100%;
+}
+
+body {
+    font-family: "Comic Sans MS", cursive;
+}
+
+:root {
+    --border-color: #006e78;
+    --hover: #e3fdff;
+    --active: #006e78;
+}
